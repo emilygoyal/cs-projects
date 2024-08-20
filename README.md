@@ -1,8 +1,8 @@
 # CONNECT FOUR PROJECT
 I developed a Connect Four game in Python with an interactive AI opponent. The game features a flexible Board class that handles adding and removing checkers, checking for wins, and managing the game state. I created a Player class for human players and an AIPlayer class that uses a strategic algorithm with adjustable difficulty. The gameplay alternates between human and AI moves, with the AI making decisions based on board evaluation. This project showcases my skills in Python programming and object-oriented design, with a focus on creating engaging, interactive experiences.
 
-
 How to run the code:
+
 Create a human player and an AI player:
 
 p1 = Player('X')  # Human player
@@ -21,6 +21,7 @@ I developed an image processing tool in Python to manipulate images using custom
 
 
 How to run the code:
+
 Load the image into a 2D list of pixels:
 
 pixels = load_pixels('spam.png') (this is one of many you can try from the 'Photo Editing' folder)
