@@ -8,9 +8,11 @@ Create a human player and an AI player:
 p1 = Player('X')  # Human player
 p2 = AIPlayer('O', 'LEFT', 2)  # AI player with LEFT tiebreak and 2-move lookahead ((tiebreak can be 'LEFT', 'RIGHT', or 'RANDOM'),(lookahead can be any number of moves you want the AI player to antipacte during the game))
 
+
 Start the game:
 
 final_board = connect_four(p1, p2)
+
 
 Print the final board state:
 
@@ -26,9 +28,11 @@ Load the image into a 2D list of pixels:
 
 pixels = load_pixels('spam.png') (this is one of many you can try from the 'Photo Editing' folder)
 
+
 Convert the image to black and white with a threshold of 128:
 
 bw_pixels = bw(pixels, 128) (this is one of many functions you can apply to the image to edit it)
+
 
 Save the black and white image:
 
