@@ -1,0 +1,249 @@
+package com.Eges411Team.UnifiedPatientManager.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+// this will be a class for users in the system
+import jakarta.persistence.*;
+
+// allows us to use the 'LocalDateTime' type
+import java.time.LocalDateTime;
+
+
+
+// base class for all users
+@Entity
+
+// one database table for all user types
+@Table(name = "user")
+public class User {
+    // fields common to all users
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    // will be used as primary key
+    private Long id;
+
+    @Column(name = "user_name", nullable = false, unique = true)
+    // maps to existing DB column user_name
+    private String username;
+
+    @JsonIgnore
+    // password does not get returned in JSON responses
+    @Column(name = "password", nullable = false)
+    // every user must have a password
+    private String passwordHash;
+
+    @Enumerated(EnumType.STRING)
+    // role of the user (DOCTOR, NURSE, PATIENT)
+    @Column(name = "role", nullable = false, length = 20)
+    // every user must have a role
+    private Role role; 
+
+    @Column(name = "first_name", length = 50, nullable = false)
+    // every user must have a first name
+    private String firstName;
+    
+    @Column(name = "last_name", length = 50, nullable = false)
+    // every user must have a last name
+    private String lastName;
+     
+    @Column(name = "phone_number", length = 20, nullable = false)
+    // every user must have a phone number
+    private String phoneNumber;
+   
+    @Column(name = "failed_login_attempts")
+    //every user has a count of failed login attempts
+    private int failedLoginAttempts = 0;
+    
+    @Column(name = "gender", length = 10, nullable = false)
+    //every user has a gender 
+    private String gender;
+
+    @Column(name = "date_of_birth", nullable = false)
+    //every user has a date of birth
+    private LocalDateTime dateOfBirth;
+    
+    @Column(name = "address", length = 100, nullable = false)
+    //every user has an address
+    private String address;
+
+    @Column(name = "email", length = 50, nullable = false, unique = true)
+    //every user has an email
+    private String email;
+
+    // Optional anthropometrics
+    @Column(name = "height", length = 32)
+    private String height;   // e.g., 6'0" or 183 cm
+
+    @Column(name = "weight", length = 32)
+    private String weight;   // e.g., 180 lbs or 82 kg
+
+    @Column(name = "creation_date", nullable = false)
+    //every user has a creation date
+    private LocalDateTime creationDate;
+
+    @Column(name = "update_date", nullable = false)
+    //every user has an update date
+    private LocalDateTime updateDate;
+    
+    //ADDED BY RAJ 13th NOV 2023
+    @Column(name = "lastLogin")
+    private LocalDateTime lastLoginTime;
+
+
+    @Column(name = "isLocked", nullable = false)
+    private boolean isLocked = false;
+    
+
+    // omitting patient record relationship - deprecated entity - means that patient records
+    // should be handled via PatientRecordService and PatientRecordDTO, NOT via JPA entity mapping.
+
+    // ** relationships - removed because all these will be handled via services and DTOs **
+
+    // empty constructor required by JPA
+    public User() {
+        // no params
+    }
+
+    // constructor with parameters
+    public User(String username, String passwordHash, Role role) {
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
+
+    // getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    // when setting password, hash it before storing
+    public void setPassword(String password) {
+        // TODO - implement password hashing
+        this.passwordHash = password;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;  
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean getIsLocked() {
+        return isLocked;
+    }
+    public void setIsLocked(boolean isLocked) {
+        this.isLocked = isLocked;
+    }
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+    
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    
+    public LocalDateTime getLastLoginTime() {
+        return lastLoginTime;
+    }
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+    
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }   
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+}      
